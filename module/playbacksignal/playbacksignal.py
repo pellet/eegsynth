@@ -123,12 +123,12 @@ def _start():
     if fileformat == 'edf':
         f = EDF.EDFReader()
         f.open(filename)
-        for chanindx in range(f.getNSignals()):
+        for chanindx in range(f.getNSignals() - 1):
             if f.getSignalFreqs()[chanindx] != f.getSignalFreqs()[0]:
                 raise AssertionError('unequal SignalFreqs')
             if f.getNSamples()[chanindx] != f.getNSamples()[0]:
                 raise AssertionError('unequal NSamples')
-        H.nChannels = len(f.getSignalFreqs())
+        H.nChannels = len(f.getSignalFreqs()) - 1
         H.fSample = f.getSignalFreqs()[0]
         H.nSamples = f.getNSamples()[0]
         H.nEvents = 0
